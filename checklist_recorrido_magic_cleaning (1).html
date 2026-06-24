@@ -1,0 +1,332 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-sans)}
+.wrap{padding:16px;max-width:420px;margin:0 auto}
+.header{background:#131b2e;border-radius:12px;padding:16px;margin-bottom:16px;text-align:center}
+.header h1{color:#e4c98a;font-size:20px;font-weight:500;letter-spacing:1px}
+.header p{color:#6fa8dc;font-size:12px;margin-top:4px;letter-spacing:1.5px}
+.gold-line{height:2px;background:#b98a3d;border-radius:1px;margin-bottom:16px}
+.info-block{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:12px;padding:14px;margin-bottom:14px}
+.info-block label{font-size:11px;color:var(--color-text-secondary);letter-spacing:1px;display:block;margin-bottom:4px}
+.info-block input,.info-block select,.info-block textarea{width:100%;font-size:14px;padding:6px 0;border:none;border-bottom:0.5px solid var(--color-border-secondary);background:transparent;color:var(--color-text-primary);outline:none}
+.info-block textarea{resize:none;height:60px;margin-top:4px;border:0.5px solid var(--color-border-tertiary);border-radius:6px;padding:6px;font-size:14px}
+.info-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:10px}
+.section{margin-bottom:14px}
+.sec-title{background:#131b2e;color:#e4c98a;font-size:12px;letter-spacing:2px;padding:8px 14px;border-radius:8px 8px 0 0;font-weight:500}
+.items{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:0 0 8px 8px;overflow:hidden}
+.item{display:flex;align-items:center;padding:10px 12px;border-bottom:0.5px solid var(--color-border-tertiary);gap:10px}
+.item:last-child{border-bottom:none}
+.item-name{font-size:14px;color:var(--color-text-primary);flex:1}
+.btn-group{display:flex;gap:4px}
+.btn-c{width:32px;height:32px;border-radius:6px;border:0.5px solid var(--color-border-secondary);background:var(--color-background-secondary);font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.15s;color:var(--color-text-secondary)}
+.btn-c.active-b{background:#131b2e;border-color:#131b2e;color:#e4c98a}
+.btn-c.active-r{background:#1a6b3c;border-color:#1a6b3c;color:#fff}
+.btn-c.active-y{background:#b98a3d;border-color:#b98a3d;color:#fff}
+.btn-c.active-x{background:#8b2020;border-color:#8b2020;color:#fff}
+.note-row{padding:6px 12px;background:var(--color-background-secondary);border-bottom:0.5px solid var(--color-border-tertiary)}
+.note-row:last-child{border-bottom:none}
+.note-row input{width:100%;font-size:12px;border:none;background:transparent;color:var(--color-text-secondary);outline:none;padding:2px 0}
+.legend{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;padding:10px 12px;background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:8px}
+.leg-item{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--color-text-secondary)}
+.leg-dot{width:18px;height:18px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:11px}
+.summary{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:12px;padding:14px;margin-top:14px}
+.sum-row{display:flex;justify-content:space-between;padding:5px 0;border-bottom:0.5px solid var(--color-border-tertiary);font-size:13px}
+.sum-row:last-child{border-bottom:none}
+.sum-label{color:var(--color-text-secondary)}
+.sum-val{font-weight:500;color:var(--color-text-primary)}
+.total-bar{background:#131b2e;border-radius:8px;padding:12px;margin-top:8px;display:flex;justify-content:space-between;align-items:center}
+.total-bar span:first-child{color:#6fa8dc;font-size:12px;letter-spacing:1px}
+.total-bar span:last-child{color:#e4c98a;font-size:18px;font-weight:500}
+.notes-final{margin-top:14px}
+.notes-final textarea{width:100%;font-size:13px;padding:10px;border:0.5px solid var(--color-border-tertiary);border-radius:8px;background:var(--color-background-primary);color:var(--color-text-primary);resize:none;height:80px;outline:none}
+.btn-share{width:100%;background:#b98a3d;color:#fff;border:none;border-radius:8px;padding:12px;font-size:14px;font-weight:500;cursor:pointer;margin-top:12px;letter-spacing:1px}
+.btn-share:active{opacity:0.85}
+.btn-reset{width:100%;background:transparent;color:var(--color-text-secondary);border:0.5px solid var(--color-border-secondary);border-radius:8px;padding:10px;font-size:13px;cursor:pointer;margin-top:8px}
+.copied{display:none;text-align:center;color:#1a6b3c;font-size:13px;margin-top:8px}
+</style>
+
+<div class="wrap">
+  <div class="header">
+    <h1>Magic Cleaning</h1>
+    <p>RECORRIDO DE PROPIEDAD</p>
+  </div>
+  <div class="gold-line"></div>
+
+  <div class="info-block">
+    <div class="info-row">
+      <div>
+        <label>FECHA</label>
+        <input type="date" id="fecha">
+      </div>
+      <div>
+        <label>TIPO DE PROPIEDAD</label>
+        <select id="tipo">
+          <option value="">— Seleccionar —</option>
+          <option>Casa residencial</option>
+          <option>Apartamento</option>
+          <option>Oficina / Negocio</option>
+          <option>Unidad de renta</option>
+          <option>Airbnb / Renta corta</option>
+          <option>Local comercial</option>
+        </select>
+      </div>
+    </div>
+    <div style="margin-bottom:10px">
+      <label>DIRECCIÓN DE LA PROPIEDAD</label>
+      <input type="text" id="direccion" placeholder="Ej: 701 S Buntin St, Kennewick">
+    </div>
+    <div class="info-row">
+      <div>
+        <label>NOMBRE DEL CLIENTE</label>
+        <input type="text" id="cliente" placeholder="Nombre completo">
+      </div>
+      <div>
+        <label>SERVICIO SOLICITADO</label>
+        <select id="servicio">
+          <option value="">— Seleccionar —</option>
+          <option>Limpieza estándar</option>
+          <option>Limpieza profunda</option>
+          <option>Mudanza entrada/salida</option>
+          <option>Limpieza comercial</option>
+          <option>Airbnb turnover</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="legend">
+    <div class="leg-item"><div class="leg-dot" style="background:#131b2e;color:#e4c98a">N/A</div> No aplica</div>
+    <div class="leg-item"><div class="leg-dot" style="background:#1a6b3c;color:#fff">✓</div> Limpio</div>
+    <div class="leg-item"><div class="leg-dot" style="background:#b98a3d;color:#fff">!</div> Necesita limpieza</div>
+    <div class="leg-item"><div class="leg-dot" style="background:#8b2020;color:#fff">✗</div> Muy sucio</div>
+  </div>
+
+  <div id="sections"></div>
+
+  <div class="notes-final">
+    <div class="info-block" style="margin-bottom:0">
+      <label>NOTAS ADICIONALES / OBSERVACIONES GENERALES</label>
+      <textarea id="notas-gen" placeholder="Ej: propiedad vacía, hay mascotas, se necesitan escaleras, etc."></textarea>
+    </div>
+  </div>
+
+  <div class="summary" id="resumen" style="margin-top:14px">
+    <div style="font-size:11px;color:var(--color-text-secondary);letter-spacing:2px;margin-bottom:10px">RESUMEN DEL RECORRIDO</div>
+    <div class="sum-row"><span class="sum-label">Áreas limpias</span><span class="sum-val" id="s-limpias">0</span></div>
+    <div class="sum-row"><span class="sum-label">Necesitan limpieza</span><span class="sum-val" id="s-necesita">0</span></div>
+    <div class="sum-row"><span class="sum-label">Muy sucias</span><span class="sum-val" id="s-sucias">0</span></div>
+    <div class="sum-row"><span class="sum-label">No aplican</span><span class="sum-val" id="s-na">0</span></div>
+    <div class="total-bar">
+      <span>NIVEL DE TRABAJO</span>
+      <span id="s-nivel">—</span>
+    </div>
+  </div>
+
+  <button class="btn-share" onclick="copiarResumen()">Copiar resumen para enviar a Angel</button>
+  <button class="btn-reset" onclick="resetForm()">Limpiar formulario</button>
+  <div class="copied" id="copied-msg">¡Copiado! Pégalo en WhatsApp.</div>
+</div>
+
+<script>
+const sections = [
+  { id:'sala', nombre:'SALA / LIVING', items:[
+    'Pisos (barrer/trapear)','Polvo en muebles','Polvo en cuadros/estantes',
+    'Ventanas (interior)','Puertas y manijas','Basura / papeleras'
+  ]},
+  { id:'cocina', nombre:'COCINA', items:[
+    'Pisos','Encimeras / countertops','Estufa (exterior)','Estufa (interior)',
+    'Microondas (exterior)','Microondas (interior)','Refrigerador (exterior)',
+    'Refrigerador (interior)','Fregadero','Cabinetes (exterior)','Backsplash',
+    'Basura / papeleras'
+  ]},
+  { id:'bano1', nombre:'BAÑO 1', items:[
+    'Inodoro (exterior e interior)','Lavabo / tina','Regadera / ducha',
+    'Espejos','Pisos','Cabinetes','Azulejo / grout','Papelera'
+  ]},
+  { id:'bano2', nombre:'BAÑO 2', items:[
+    'Inodoro (exterior e interior)','Lavabo / tina','Regadera / ducha',
+    'Espejos','Pisos','Cabinetes','Azulejo / grout','Papelera'
+  ]},
+  { id:'recamara1', nombre:'RECÁMARA 1', items:[
+    'Pisos','Polvo en muebles','Polvo en ventilador/lámpara',
+    'Ventanas (interior)','Clóset (interior)','Manijas / interruptores'
+  ]},
+  { id:'recamara2', nombre:'RECÁMARA 2', items:[
+    'Pisos','Polvo en muebles','Polvo en ventilador/lámpara',
+    'Ventanas (interior)','Clóset (interior)','Manijas / interruptores'
+  ]},
+  { id:'recamara3', nombre:'RECÁMARA 3', items:[
+    'Pisos','Polvo en muebles','Ventanas (interior)','Clóset (interior)'
+  ]},
+  { id:'areas', nombre:'ÁREAS GENERALES', items:[
+    'Pasillos / hallways','Escaleras','Cuarto de lavado','Cochera (interior)',
+    'Balcón / patio','Zócalos / baseboards','Interruptores de luz',
+    'Puertas (marco y superficie)','Ventanas adicionales'
+  ]},
+  { id:'comercial', nombre:'ÁREA COMERCIAL (si aplica)', items:[
+    'Recepción / lobby','Sala de espera','Sala de juntas',
+    'Oficinas individuales','Baños de empleados / clientes',
+    'Cocina / comedor de empleados','Bodegas / almacenes',
+    'Vidrios / ventanales','Basureros generales'
+  ]}
+];
+
+const state = {};
+
+function build(){
+  const cont = document.getElementById('sections');
+  cont.innerHTML = '';
+  sections.forEach(sec => {
+    state[sec.id] = {};
+    const div = document.createElement('div');
+    div.className = 'section';
+    div.innerHTML = `<div class="sec-title">${sec.nombre}</div><div class="items" id="items-${sec.id}"></div>`;
+    cont.appendChild(div);
+    const itemsCont = document.getElementById('items-'+sec.id);
+    sec.items.forEach((item,i) => {
+      state[sec.id][i] = {status:'na', nota:''};
+      const row = document.createElement('div');
+      row.innerHTML = `
+        <div class="item" id="item-${sec.id}-${i}">
+          <span class="item-name">${item}</span>
+          <div class="btn-group">
+            <button class="btn-c active-b" data-s="${sec.id}" data-i="${i}" data-v="na" title="No aplica">N/A</button>
+            <button class="btn-c" data-s="${sec.id}" data-i="${i}" data-v="limpio" title="Limpio">✓</button>
+            <button class="btn-c" data-s="${sec.id}" data-i="${i}" data-v="necesita" title="Necesita limpieza">!</button>
+            <button class="btn-c" data-s="${sec.id}" data-i="${i}" data-v="sucio" title="Muy sucio">✗</button>
+          </div>
+        </div>
+        <div class="note-row" id="nota-${sec.id}-${i}" style="display:none">
+          <input type="text" placeholder="Nota: ej. manchas en pared, requiere producto especial..." data-s="${sec.id}" data-i="${i}">
+        </div>`;
+      itemsCont.appendChild(row);
+    });
+  });
+
+  document.querySelectorAll('.btn-c').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const s=btn.dataset.s, i=btn.dataset.i, v=btn.dataset.v;
+      state[s][i].status=v;
+      const btns=document.querySelectorAll(`[data-s="${s}"][data-i="${i}"]`);
+      btns.forEach(b=>{
+        b.classList.remove('active-b','active-r','active-y','active-x');
+      });
+      if(v==='na') btn.classList.add('active-b');
+      else if(v==='limpio') btn.classList.add('active-r');
+      else if(v==='necesita') btn.classList.add('active-y');
+      else if(v==='sucio') btn.classList.add('active-x');
+      const notaRow=document.getElementById(`nota-${s}-${i}`);
+      notaRow.style.display=(v==='necesita'||v==='sucio')?'block':'none';
+      if(v==='na'||v==='limpio') state[s][i].nota='';
+      updateSummary();
+    });
+  });
+
+  document.querySelectorAll('.note-row input').forEach(inp=>{
+    inp.addEventListener('input',()=>{
+      state[inp.dataset.s][inp.dataset.i].nota=inp.value;
+    });
+  });
+
+  const today=new Date().toISOString().split('T')[0];
+  document.getElementById('fecha').value=today;
+  updateSummary();
+}
+
+function updateSummary(){
+  let limpias=0,necesita=0,sucias=0,na=0;
+  Object.values(state).forEach(sec=>{
+    Object.values(sec).forEach(item=>{
+      if(item.status==='limpio') limpias++;
+      else if(item.status==='necesita') necesita++;
+      else if(item.status==='sucio') sucias++;
+      else na++;
+    });
+  });
+  document.getElementById('s-limpias').textContent=limpias;
+  document.getElementById('s-necesita').textContent=necesita;
+  document.getElementById('s-sucias').textContent=sucias;
+  document.getElementById('s-na').textContent=na;
+  const total=necesita+sucias;
+  let nivel='—';
+  if(total>0){
+    if(sucias>=8) nivel='MUY ALTO';
+    else if(sucias>=4||total>=15) nivel='ALTO';
+    else if(total>=7) nivel='MEDIO';
+    else nivel='BAJO';
+  }
+  document.getElementById('s-nivel').textContent=nivel;
+}
+
+function copiarResumen(){
+  const fecha=document.getElementById('fecha').value||'—';
+  const tipo=document.getElementById('tipo').value||'—';
+  const dir=document.getElementById('direccion').value||'—';
+  const cliente=document.getElementById('cliente').value||'—';
+  const servicio=document.getElementById('servicio').value||'—';
+  const notas=document.getElementById('notas-gen').value||'—';
+
+  let txt=`🧹 MAGIC CLEANING — RECORRIDO DE PROPIEDAD\n`;
+  txt+=`━━━━━━━━━━━━━━━━━━━━━━\n`;
+  txt+=`📅 Fecha: ${fecha}\n`;
+  txt+=`📍 Dirección: ${dir}\n`;
+  txt+=`🏠 Tipo: ${tipo}\n`;
+  txt+=`👤 Cliente: ${cliente}\n`;
+  txt+=`🧽 Servicio: ${servicio}\n`;
+  txt+=`━━━━━━━━━━━━━━━━━━━━━━\n\n`;
+
+  sections.forEach(sec=>{
+    const items=sec.items;
+    const secState=state[sec.id];
+    const secLines=[];
+    items.forEach((item,i)=>{
+      const st=secState[i].status;
+      const nota=secState[i].nota;
+      if(st==='na') return;
+      const emoji=st==='limpio'?'✅':st==='necesita'?'⚠️':'❌';
+      const label=st==='limpio'?'Limpio':st==='necesita'?'Necesita limpieza':'Muy sucio';
+      let line=`  ${emoji} ${item}: ${label}`;
+      if(nota) line+=` — ${nota}`;
+      secLines.push(line);
+    });
+    if(secLines.length>0){
+      txt+=`📂 ${sec.nombre}\n${secLines.join('\n')}\n\n`;
+    }
+  });
+
+  const limpias=document.getElementById('s-limpias').textContent;
+  const necesita=document.getElementById('s-necesita').textContent;
+  const sucias=document.getElementById('s-sucias').textContent;
+  const nivel=document.getElementById('s-nivel').textContent;
+
+  txt+=`━━━━━━━━━━━━━━━━━━━━━━\n`;
+  txt+=`📊 RESUMEN\n`;
+  txt+=`✅ Limpias: ${limpias}\n`;
+  txt+=`⚠️ Necesitan limpieza: ${necesita}\n`;
+  txt+=`❌ Muy sucias: ${sucias}\n`;
+  txt+=`🔥 Nivel de trabajo: ${nivel}\n\n`;
+  txt+=`📝 Notas: ${notas}\n`;
+  txt+=`━━━━━━━━━━━━━━━━━━━━━━\n`;
+  txt+=`Magic Cleaning · (509) 537-7040`;
+
+  navigator.clipboard.writeText(txt).then(()=>{
+    const msg=document.getElementById('copied-msg');
+    msg.style.display='block';
+    setTimeout(()=>msg.style.display='none',3000);
+  }).catch(()=>alert('Copia el texto del resumen manualmente.'));
+}
+
+function resetForm(){
+  if(!confirm('¿Borrar todo el formulario?')) return;
+  document.getElementById('fecha').value=new Date().toISOString().split('T')[0];
+  document.getElementById('tipo').value='';
+  document.getElementById('direccion').value='';
+  document.getElementById('cliente').value='';
+  document.getElementById('servicio').value='';
+  document.getElementById('notas-gen').value='';
+  build();
+}
+
+build();
+</script>
